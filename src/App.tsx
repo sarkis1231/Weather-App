@@ -19,14 +19,16 @@ import Navbar from 'components/Navbar';
 
 // Types
 import { UserWeather } from 'types';
+import Loader from 'components/Loader';
 
 axios.defaults.baseURL = 'http://api.weatherstack.com/current';
 axios.defaults.params = { access_key: 'd3b68fc53ea84c81995c5f54bf1077f1' };
 
 function App() {
-  const { latitude, longitude } = usePosition();
+  const { latitude, longitude, error } = usePosition();
   const [data, setData] = useState<UserWeather | null>(null);
   const [inputValue, setInputValue] = useState('');
+
   useEffect(() => {
     if (longitude && latitude) {
       getWeather('', latitude, longitude).then((res) => {
@@ -40,16 +42,25 @@ function App() {
   const changeRegion = (value: string) => {
     setInputValue(value);
   };
+
   const changeLocation = (e: FormEvent) => {
     e.preventDefault();
-    getWeather(inputValue).then((res) => {
-      if (res) {
-        setData(res);
-      }
-    });
+    getWeather(inputValue)
+      .then((res) => {
+        if (res) {
+          setData(res);
+        }
+      })
   };
 
-  if (!data) return null;
+  if (error) {
+    return <Loader title={error} />;
+  }
+
+  if (!data) {
+    return <Loader title="loading" />;
+  }
+
   const {
     temperature,
     description,
@@ -67,13 +78,13 @@ function App() {
     <>
       <ThemeProvider theme={THEME}>
         <GlobalStyles />
+        <Navbar changeLocation={changeLocation} changeRegion={changeRegion} />
         <FlexContainer
           width="100%"
-          flexDirection="column"
           alignItems="center"
           justifyContent="center"
+          margin="30px 0 0"
         >
-          <Navbar changeLocation={changeLocation} changeRegion={changeRegion} />
           <UserLocation
             country={country}
             description={description}

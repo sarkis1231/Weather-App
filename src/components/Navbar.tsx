@@ -6,9 +6,9 @@ const RegionInout = styled.input`
   background: none;
   border: none;
   border-bottom: 1px solid #fff;
-  padding:0 50px 10px 0;
+  padding: 0 50px 10px 0;
   outline: none;
-  color: ${({theme}) => theme.primary};
+  color: ${({ theme }) => theme.primary};
 
   &::placeholder {
     font-weight: 600;
@@ -27,7 +27,7 @@ const Navbar: FC<TProps> = ({ changeLocation, changeRegion }: TProps) => (
     width="100%"
     alignItems="center"
     justifyContent="space-between"
-    padding='10px 20px'
+    padding="10px 20px"
   >
     <H1>Weather App</H1>
     <div>

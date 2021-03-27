@@ -3,6 +3,15 @@ import React, { FC } from 'react';
 import { FlexContainer } from 'styles/shared.styled';
 
 import { UserWeather } from 'types';
+import styled from 'styled-components';
+
+const ImageContainer = styled.div`
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+  }
+`;
 
 const UserLocation: FC<UserWeather> = ({
   temperature,
@@ -16,9 +25,20 @@ const UserLocation: FC<UserWeather> = ({
   humidity,
   img,
 }: UserWeather) => (
-  <FlexContainer width="100%" alignItems="center" justifyContent="space-evenly">
-    <div className="row">
-      <div className="col-md-3 weather-temp">
+  <FlexContainer
+    width="100%"
+    maxWidth="900px"
+    justifyContent="space-between"
+    flexWrap
+    alignItems="center"
+  >
+    <FlexContainer
+      width="100%"
+      flexDirection="column"
+      alignItems="flex-start"
+      justifyContent="space-between"
+    >
+      <div>
         <h1>
           {temperature}
           <sup>o</sup>C , {description}
@@ -29,15 +49,16 @@ const UserLocation: FC<UserWeather> = ({
         </p>
       </div>
 
-      <div className="col-md-9">
-        <img className="mainImg" src={img} alt="weather-img" />
-      </div>
-    </div>
+      <ImageContainer>
+        <img src={img} alt="weather" />
+      </ImageContainer>
+    </FlexContainer>
 
     <FlexContainer
-      width="60%"
+      width="100%"
       alignItems="center"
       justifyContent="space-between"
+      margin="30px 0 0"
     >
       <div>
         <p>

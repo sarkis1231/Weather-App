@@ -18,7 +18,9 @@ export const usePosition: () => {
     setLoaded(true);
   };
   const onError: PositionErrorCallback = (err: GeolocationPositionError) => {
-    setError(err.message);
+    if (err) {
+      setError('Please allow your browser to use location');
+    }
   };
   useEffect(() => {
     const geo = navigator.geolocation;

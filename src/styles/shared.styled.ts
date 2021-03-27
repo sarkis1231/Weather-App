@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 type TFlexContainer = {
   width: string;
+  maxWidth?: string;
   flexDirection?: string;
   justifyContent: string;
   alignItems: string;
@@ -15,6 +16,7 @@ type TFlexContainer = {
 export const FlexContainer = styled.div<TFlexContainer>`
   display: flex;
   width: ${({ width }) => width};
+  max-width: ${({ maxWidth }) => maxWidth};
   flex-direction: ${({ flexDirection }) => flexDirection || 'row'};
   justify-content: ${({ justifyContent }) => justifyContent};
   align-items: ${({ alignItems }) => alignItems};

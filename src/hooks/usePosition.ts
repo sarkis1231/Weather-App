@@ -19,6 +19,7 @@ export const usePosition: () => {
   };
   const onError: PositionErrorCallback = (err: GeolocationPositionError) => {
     if (err) {
+      // TODO Handle the error in better way
       setError('Please allow your browser to use location');
     }
   };
@@ -29,7 +30,7 @@ export const usePosition: () => {
       return;
     }
     const watcher = geo.watchPosition(onChange, onError);
-    // eslint-disable-next-line
+
     return function () {
       return geo.clearWatch(watcher);
     };

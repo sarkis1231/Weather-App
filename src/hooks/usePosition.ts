@@ -24,7 +24,7 @@ export const usePosition: () => {
     }
   };
   useEffect(() => {
-    // TODO There's better way to handle it
+    // TODO There's a better way to handle it
     const geo = navigator.geolocation;
     if (!geo) {
       setError('Geolocation is not supported');

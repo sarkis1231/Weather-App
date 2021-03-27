@@ -66,11 +66,13 @@
     "react/no-array-index-key" : "off",
     "react/destructuring-assignment": "off",
     "no-prototype-builtins": "off",
+    "consistent-return": "off",
+    "func-names": "off",
     "@typescript-eslint/comma-dangle": ["error", {
-      "arrays": "only-multiline",
+      "arrays": "never",
       "objects": "only-multiline",
-      "imports": "only-multiline",
-      "exports": "only-multiline",
+      "imports": "never",
+      "exports": "never",
       "functions": "never"
     }]
   }

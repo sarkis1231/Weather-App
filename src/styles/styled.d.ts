@@ -1,8 +1,8 @@
 import 'styled-components';
 
 declare module 'styled-components' {
-    export interface DefaultTheme {
-        bg: string;
-        primary: string;
-    }
+  export interface DefaultTheme {
+    bg: string;
+    primary: string;
+  }
 }

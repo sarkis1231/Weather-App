@@ -4,15 +4,18 @@ export const usePosition: () => {
   latitude: number;
   longitude: number;
   error: string;
+  loaded: boolean;
 } = () => {
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const [error, setError] = useState('');
+  const [loaded, setLoaded] = useState(false);
 
   const onChange: PositionCallback = ({ coords }: GeolocationPosition) => {
     setPosition({
       latitude: coords.latitude,
       longitude: coords.longitude,
     });
+    setLoaded(true);
   };
   const onError: PositionErrorCallback = (err: GeolocationPositionError) => {
     setError(err.message);
@@ -29,5 +32,5 @@ export const usePosition: () => {
       return geo.clearWatch(watcher);
     };
   }, []);
-  return { ...position, error };
+  return { ...position, error, loaded };
 };

@@ -1,35 +1,92 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
+
+// Styles
 import { ThemeProvider } from 'styled-components';
 import { THEME } from 'styles/THEME';
 import { GlobalStyles } from 'styles/global';
+import { FlexContainer } from 'styles/shared.styled';
+
+// Hooks
 import { usePosition } from 'hooks/usePosition';
+
+// Utils
 import axios from 'axios';
 import { getWeather } from 'utils';
+
+// Components
+import UserLocation from 'components/userLocation';
+import Navbar from 'components/Navbar';
+
+// Types
+import { UserWeather } from 'types';
 
 axios.defaults.baseURL = 'http://api.weatherstack.com/current';
 axios.defaults.params = { access_key: 'd3b68fc53ea84c81995c5f54bf1077f1' };
 
 function App() {
   const { latitude, longitude } = usePosition();
-  const [data, setData] = useState({});
+  const [data, setData] = useState<UserWeather | null>(null);
+  const [inputValue, setInputValue] = useState('');
   useEffect(() => {
     if (longitude && latitude) {
-      console.log('working..');
-      getWeather(latitude, longitude).then((res) => {
+      getWeather('', latitude, longitude).then((res) => {
         if (res) {
-          setData((prev) => ({ ...prev, ...res }));
+          setData(res);
         }
       });
     }
   }, [longitude, latitude]);
 
-  console.log(data);
+  const changeRegion = (value: string) => {
+    setInputValue(value);
+  };
+  const changeLocation = (e: FormEvent) => {
+    e.preventDefault();
+    getWeather(inputValue).then((res) => {
+      if (res) {
+        setData(res);
+      }
+    });
+  };
+
+  if (!data) return null;
+  const {
+    temperature,
+    description,
+    location,
+    region,
+    country,
+    windSpeed,
+    pressure,
+    precip,
+    humidity,
+    img,
+  } = data;
 
   return (
     <>
       <ThemeProvider theme={THEME}>
         <GlobalStyles />
-        <h1>Hello</h1>
+        <FlexContainer
+          width="100%"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Navbar changeLocation={changeLocation} changeRegion={changeRegion} />
+          <UserLocation
+            country={country}
+            description={description}
+            humidity={humidity}
+            img={img}
+            location={location}
+            precip={precip}
+            pressure={pressure}
+            region={region}
+            temperature={temperature}
+            windSpeed={windSpeed}
+          />
+        </FlexContainer>
       </ThemeProvider>
     </>
   );

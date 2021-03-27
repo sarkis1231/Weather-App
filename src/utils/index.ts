@@ -1,10 +1,14 @@
 import axios from 'axios';
 
-export async function getWeather(latitude: number, longitude: number) {
+export async function getWeather(
+  query?: string,
+  latitude?: number,
+  longitude?: number
+) {
   try {
     const res = await axios.get('', {
       params: {
-        query: `${latitude},${longitude}`,
+        query: `${query?.length ? query : `${latitude},${longitude}`}`,
       },
     });
 
@@ -14,7 +18,7 @@ export async function getWeather(latitude: number, longitude: number) {
       location: res.data.location.name,
       region: res.data.location.region,
       country: res.data.location.country,
-      wind_speed: res.data.current.wind_speed,
+      windSpeed: res.data.current.wind_speed,
       pressure: res.data.current.pressure,
       precip: res.data.current.precip,
       humidity: res.data.current.humidity,

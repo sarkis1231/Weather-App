@@ -21,8 +21,9 @@ import Navbar from 'components/Navbar';
 import { UserWeather } from 'types';
 import Loader from 'components/Loader';
 
-axios.defaults.baseURL = 'http://api.weatherstack.com/current';
-axios.defaults.params = { access_key: 'd3b68fc53ea84c81995c5f54bf1077f1' };
+const { REACT_APP_BASE_URL, REACT_APP_ACCESS_KEY } = process.env;
+axios.defaults.baseURL = REACT_APP_BASE_URL;
+axios.defaults.params = { access_key: REACT_APP_ACCESS_KEY };
 
 function App() {
   const { latitude, longitude, error } = usePosition();
@@ -45,12 +46,11 @@ function App() {
 
   const changeLocation = (e: FormEvent) => {
     e.preventDefault();
-    getWeather(inputValue)
-      .then((res) => {
-        if (res) {
-          setData(res);
-        }
-      })
+    getWeather(inputValue).then((res) => {
+      if (res) {
+        setData(res);
+      }
+    });
   };
 
   if (error) {

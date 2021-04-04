@@ -2,9 +2,8 @@
 
 
 
-
-```sh
 ## Install
+```sh
 yarn 
 ```
 

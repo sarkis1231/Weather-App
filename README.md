@@ -1,9 +1,10 @@
 # Weather-App
 
 
-## Install
+
 
 ```sh
+## Install
 yarn 
 ```
 

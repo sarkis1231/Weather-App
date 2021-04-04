@@ -18,5 +18,5 @@ yarn
 ## Start
 
 ```sh
-Then you'are good to fire yarn start 😌
+Then you are good to fire yarn start 😌
 ```
